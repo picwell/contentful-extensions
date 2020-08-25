@@ -1,6 +1,0 @@
-{
-  "id": "rich-text-default",
-  "name": "rich-text-default",
-  "srcdoc": "./build/index.html",
-  "sidebar": true
-}
