@@ -1,6 +1,6 @@
 {
   "id": "apply-defaults",
-  "name": "Apply Defaults",
+  "name": "Apply Field Defaults",
   "srcdoc": "./build/index.html",
   "sidebar": true
 }
