@@ -149,6 +149,7 @@ export class SidebarExtension extends React.Component {
 
     this.state = {
       contentType: this.props.sdk.contentType,
+      entryName: this.props.sdk.entry.fields.contentfulName._fieldLocales['en-US']._value,
       locales: this.props.sdk.locales,
       getDefaultValues: () => {
         const defaultFields = Object.keys(this.props.sdk.entry.fields);
@@ -194,14 +195,19 @@ export class SidebarExtension extends React.Component {
   render() {
     return (
       <div className ="apply-default">
-        <p>Click here to Migrate default field values to other Client entries.</p>
-        <Button
+        {this.state.entryName === `${this.state.contentType.name} (DEFAULT DO NOT CHANGE)` &&
+          <>
+            <p>Click here to Migrate default field values to other Client entries.</p>
+            <Button
             buttonType="positive"
             isFullWidth={true}
             testId="open-dialog"
             onClick={this.openDialog}>
-          Apply defaults
-        </Button>
+            Apply defaults
+            </Button>
+          </>
+        }
+
       </div>
 
     );
