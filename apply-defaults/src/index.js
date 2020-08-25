@@ -157,7 +157,7 @@ export class SidebarExtension extends React.Component {
     super(props);
 
     this.state = {
-      space: 'cylh7q2fmnn3',
+      space: 'Space',
       contentType: this.props.sdk.contentType,
       locales: this.props.sdk.locales,
       getDefaultValues: () => {
