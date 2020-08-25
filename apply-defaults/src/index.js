@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import {Button} from '@contentful/forma-36-react-components';
 import {init, locations} from 'contentful-ui-extensions-sdk';
 import * as contentful from 'contentful-management';
-import tokens from '@contentful/forma-36-tokens';
 import '@contentful/forma-36-react-components/dist/styles.css';
 import './index.css';
 import './multi-select.css';
@@ -14,11 +13,13 @@ export class DialogExtension extends React.Component {
     super(props);
     this.props.sdk.window.updateHeight(400)
 
+    console.log(this.props.sdk.space);
+
     this.state = {
       client: contentful.createClient({
-        accessToken: 'zmScB8ceHhFvB4YSFSo601sx6c10UV09SDHiSGzbN18',
+        accessToken: "Access Token",
       }),
-      space: 'cylh7q2fmnn3',
+      space: this.props.sdk.space,
       applied: false,
       locales: this.props.sdk.parameters.invocation.locales,
       entries: this.props.sdk.parameters.invocation.entries,
@@ -32,26 +33,27 @@ export class DialogExtension extends React.Component {
     const selectedFields = document.getElementsByName("field");
     const selectedLocales = document.getElementsByName("locale");
     const fieldIds = Array.from(selectedFields).map((field) => field.checked ? field.id : null);
-    console.log(this.state.defaultValues);
 
-    await this.state.client.getSpace(this.state.space).then((space) => {
-      this.state.entries.items.map((entry, index) => {
-        if (selectedEntries[index].checked) {
-          space.getEntry(entry.sys.id).then((entry) => {
-            fieldIds.map((id) => {
-              if(id) {
-                Object.keys(this.state.defaultValues[id]).map((locale, index) => {
-                  if (selectedLocales[index].checked) {
-                    console.log(locale);
-                    entry.fields[id][locale] = this.state.defaultValues[id][locale];
-                  }
-                })
+    const updateEntry = async (entry) => {
+      await this.state.space.getEntry(entry.sys.id).then((entry) => {
+        fieldIds.map((id) => {
+          if(id) {
+            Object.keys(this.state.defaultValues[id]).map((locale, index) => {
+              if (selectedLocales[index].checked) {
+                entry.fields[id][locale] = this.state.defaultValues[id][locale];
               }
-            });
-            entry.update();
-          })
-        }
+            })
+          }
+        })
+        console.log(entry);
+        entry.update();
       })
+    }
+
+    this.state.entries.items.map((entry, index) => {
+      if (selectedEntries[index].checked) {
+        updateEntry(entry);
+      }
     })
     this.setState({ applied: true });
   }
@@ -165,7 +167,6 @@ export class SidebarExtension extends React.Component {
           vals[id] = {}
           const fieldLocales = this.props.sdk.entry.fields[id]._fieldLocales;
           Object.keys(fieldLocales).map((locale) => {
-            console.log(locale);
             vals[id][locale] = fieldLocales[locale]._value;
           })
         })
@@ -180,16 +181,14 @@ export class SidebarExtension extends React.Component {
 
   openDialog = async () => {
     const client = contentful.createClient({
-      accessToken: 'zmScB8ceHhFvB4YSFSo601sx6c10UV09SDHiSGzbN18'
+      accessToken: 'Access Token'
     });
     const defaultValues = this.state.getDefaultValues();
-    console.log(defaultValues);
 
     await client.getSpace(this.state.space).then((space) => {
       space.getEntries({
         'content_type': this.state.contentType.sys.id,
       }).then((entries) => {
-        console.log(entries);
         const result = this.props.sdk.dialogs.openExtension({
           width: 800,
           minHeight: 400,
@@ -235,33 +234,3 @@ export const initialize = sdk => {
 };
 
 init(initialize);
-
-/**
- * By default, iframe of the extension is fully reloaded on every save of a source file.
- * If you want to use HMR (hot module reload) instead of full reload, uncomment the following lines
- */
-// if (module.hot) {
-//   module.hot.accept();
-// }
-/*
-<p>Default Entry?</p>
-<form>
-  <label>
-    <input
-        type="radio"
-        name="isDefault"
-        onChange={() => this.setState({isDefault: true})}
-        className="form-check-input"
-    />
-    Yes
-  </label>
-  <label>
-    <input
-        type="radio"
-        name="isDefault"
-        onChange={() => this.setState({isDefault: false})}
-        className="form-check-input"
-    />
-    No
-  </label>
-</form>*/
