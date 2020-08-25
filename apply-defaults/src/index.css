@@ -1,0 +1,67 @@
+html, body, div {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: rgb(96, 108, 124);
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+p {
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+fieldset {
+    padding-left: 0;
+    border: 0;
+}
+
+form {
+    margin: 0 0 .5em 0;
+}
+
+label {
+    margin: 0 1em 0 0;
+}
+
+input {
+    margin: 4px 6px 4px 0;
+}
+
+button {
+    margin: 2em 0;
+}
+
+.form {
+    margin: 0 1em 1em 1em;
+    max-height: 400px;
+    overflow: scroll;
+}
+
+.locales-wrapper {
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+.settings-wrapper {
+    margin-bottom: 25px;
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.buttons-wrapper {
+    width: 37%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.apply-default {
+    font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+}
+
+.apply-default button {
+    margin: 1em 0;
+}

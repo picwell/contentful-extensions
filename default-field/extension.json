@@ -1,0 +1,27 @@
+{
+  "id": "default-field",
+  "name": "Default Field Value",
+  "srcdoc": "./build/index.html",
+  "fieldTypes": [
+    "Symbol",
+    "Text"
+  ],
+  "parameters": {
+    "instance": [
+      {
+        "id": "defaultColor",
+        "name": "Default Value",
+        "description": "The text your field will display when it is empty",
+        "type": "Symbol",
+        "required": true
+      },
+      {
+        "id": "helpText",
+        "name": "Help Text",
+        "description": "This help text will show up below the field",
+        "type": "Boolean",
+        "required": true
+      }
+    ]
+  }
+}

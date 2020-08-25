@@ -1,0 +1,6 @@
+{
+  "id": "apply-defaults",
+  "name": "Apply Defaults",
+  "srcdoc": "./build/index.html",
+  "sidebar": true
+}
